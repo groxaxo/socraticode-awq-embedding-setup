@@ -1,0 +1,15 @@
+[Unit]
+Description=SocratiCode Qdrant vector database
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+ExecStartPre=-/usr/bin/docker rm -f socraticode-qdrant
+ExecStart=/usr/bin/docker run --name socraticode-qdrant --rm -p 17333:6333 -p 17334:6334 -v socraticode-qdrant-data:/qdrant/storage qdrant/qdrant:v1.17.0
+ExecStop=/usr/bin/docker stop socraticode-qdrant
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

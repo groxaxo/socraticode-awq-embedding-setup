@@ -1,0 +1,17 @@
+[Unit]
+Description=Lazy vLLM Embeddings Proxy (Qwen3-Embedding-4B AWQ INT4)
+After=network.target
+
+[Service]
+Type=simple
+User=op
+WorkingDirectory=/home/op
+EnvironmentFile=/etc/lazy-qwen3-embedding-awq.env
+ExecStart=/usr/bin/env python3 /usr/local/bin/lazy_vllm_proxy_sleep.py
+Restart=always
+RestartSec=2
+TimeoutStartSec=0
+LimitNOFILE=1048576
+
+[Install]
+WantedBy=multi-user.target
